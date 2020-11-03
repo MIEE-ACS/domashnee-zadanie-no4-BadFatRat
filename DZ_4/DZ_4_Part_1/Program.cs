@@ -7,7 +7,6 @@ namespace DZ_4_Part_1
         static void Main(string[] args)
         {
             Random rnd = new Random();
-            int randomInt; // целая часть для генерации случайных вещественных чисел
             double negativeSum = 0; // сумма отрицательных элементов массива
             double multiply = 1; // произведение элементов массива, расположенных между максимальным и минимальным элементами
             double min; // минимальный элемент массива
@@ -56,17 +55,9 @@ namespace DZ_4_Part_1
                 }
             } while (!flag);
             double[] arr = new double[arrSize];
+            arr = MassiveGeneretion(arr, lowerLimit, upperLimit);
             Console.WriteLine("\nМассив:");
-            for (int i = 0; i < arr.Length; i++)
-            {
-                randomInt = rnd.Next(lowerLimit, upperLimit + 1);
-                if (randomInt < 0)
-                    arr[i] = randomInt + Math.Round(rnd.NextDouble(), 2);
-                else
-                    arr[i] = randomInt - Math.Round(rnd.NextDouble(), 2);
-                Console.Write($"{arr[i]:0.00}" + " ");
-            }
-            Console.WriteLine("");
+            PrintMass(arr);
             max = lowerLimit;
             min = upperLimit;
             for (int i = 0; i < arr.Length; i++)
@@ -110,8 +101,28 @@ namespace DZ_4_Part_1
             }
             Array.Sort(arr);
             Console.WriteLine("Отсортированный по возрастанию массив: ");
-            foreach (var i in arr)
-                Console.Write($"{i:0.00} ");
+            PrintMass(arr);
+        }
+        static double[] MassiveGeneretion(double [] arr, int lowerLimit, int upperLimit)
+        {
+            Random rnd = new Random();
+            int randomInt;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                randomInt = rnd.Next(lowerLimit, upperLimit + 1);
+                if (randomInt < 0)
+                    arr[i] = randomInt + Math.Round(rnd.NextDouble(), 2);
+                else
+                    arr[i] = randomInt - Math.Round(rnd.NextDouble(), 2);
+            }
+            return arr;
+        }
+        static void PrintMass(double[] arr)
+        {
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Console.Write($"{arr[i]:0.00}" + " ");
+            }
             Console.WriteLine("");
         }
     }
